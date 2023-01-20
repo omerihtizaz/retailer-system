@@ -1,0 +1,47 @@
+POST http://localhost:3000/users/v1.0/signup
+Content-Type: application/json
+
+{
+    "name": "Omer", 
+    "email": "Omer@gmail.com",
+    "password": "oiaZCasasd"
+}
+
+###
+POST http://localhost:3000/users/v1.0/signin
+Content-Type: application/json
+
+{
+    "email": "Omer@gmail.com",
+    "password": "oiaZCasasd"
+}
+
+###
+Get http://localhost:3000/users/v1.0/logout
+####
+# ###
+# Get http://localhost:3000/users/colors/Red
+# ####
+# Get  http://localhost:3000/users/getColors
+###
+
+Get http://localhost:3000/users/v1.0/whoami
+####
+Get http://localhost:3000/users/findOne/10
+
+
+###
+Get http://localhost:3000/users/v1.0/find/Omer@gmail.com
+
+
+###
+PATCH  http://localhost:3000/users/update/6
+Content-Type: application/json
+
+{
+    "email":"ahmed.tariq@hotmail.com"
+}
+
+
+### 
+Get http://localhost:3000/users/remove/1
