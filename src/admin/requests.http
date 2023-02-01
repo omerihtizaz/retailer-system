@@ -1,0 +1,26 @@
+POST http://localhost:3000/admin/v1.0/signup
+Content-Type: application/json
+
+{
+    "name": "Admin", 
+    "email": "Admasdin@gmail.com",
+    "password": "Adminasdfas",
+    "admin": 1
+}
+
+###
+POST http://localhost:3000/admin/v1.0/signin
+Content-Type: application/json
+
+{
+    "email": "Admin@gmail.com",
+    "password": "Admin"
+}
+
+
+### 
+Get http://localhost:3000/admin/v1.0/blacklist/admin5@gmail.com
+
+
+### 
+Get http://localhost:3000/admin/v1.0/whitelist/admin5@gmail.com

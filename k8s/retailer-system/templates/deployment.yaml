@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: retailer-system
+  name: retailer-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: retailer-system
+  template:
+    metadata:
+      labels:
+        app: retailer-system
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '3000'
+    spec:
+      containers:
+        - image: omer6980/retailer-system
+          name: retailer-system
+          ports:
+            - containerPort: 3000
