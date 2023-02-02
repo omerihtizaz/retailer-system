@@ -49,27 +49,6 @@ export class Consumer implements OnModuleInit {
     );
   }
   async consume() {
-    // this consumer will reject a customer, which will include removing the user from the unapprovedList
-    await this.consumerService.consume(
-      { topics: [REJECT_CUSTOMER] },
-      {
-        eachMessage: async ({ topic, partition, message }) => {
-          var id = JSON.parse(message.value.toString());
-          var user = await this.unauthorisedUsers
-            .createQueryBuilder()
-            .select('*')
-            .andWhere('id = :id', { id })
-            .getRawMany();
-          user = user[0];
-          await this.unauthorisedUsers.remove(user);
-          console.log({
-            Message: JSON.parse(message.value.toString()),
-            topic: topic.toString(),
-            partition: partition.toString(),
-          });
-        },
-      },
-    );
     // this consumer will listen to topics which will approve a consumer,
     // approval will check is the consumer is a user or a retailer
     // once confirmed, it will add that consumer to respective table and remove the row from the
@@ -108,6 +87,30 @@ export class Consumer implements OnModuleInit {
           });
         },
       },
+      'group01',
+    );
+
+    // this consumer will reject a customer, which will include removing the user from the unapprovedList
+    await this.consumerService.consume(
+      { topics: [REJECT_CUSTOMER] },
+      {
+        eachMessage: async ({ topic, partition, message }) => {
+          var id = JSON.parse(message.value.toString());
+          var user = await this.unauthorisedUsers
+            .createQueryBuilder()
+            .select('*')
+            .andWhere('id = :id', { id })
+            .getRawMany();
+          user = user[0];
+          await this.unauthorisedUsers.remove(user);
+          console.log({
+            Message: JSON.parse(message.value.toString()),
+            topic: topic.toString(),
+            partition: partition.toString(),
+          });
+        },
+      },
+      'group02',
     );
 
     // this will listen to a consumer topic, which will update the quantity derived from the order
@@ -142,6 +145,7 @@ export class Consumer implements OnModuleInit {
           });
         },
       },
+      'group03',
     );
   }
 }

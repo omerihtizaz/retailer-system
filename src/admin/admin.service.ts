@@ -92,10 +92,15 @@ export class AdminService {
     });
   }
   async approvePendingConsumer(id: Number) {
+    console.log(id);
     await this.producerService.produce({
       topic: APPROVE_CUSTOMER,
       messages: [{ value: JSON.stringify(id) }],
     });
+    console.log(
+      'message produced' +
+        { topic: APPROVE_CUSTOMER, messages: [{ value: JSON.stringify(id) }] },
+    );
   }
   async createTable(datasetName: string, tableName: string) {
     const schema = SCHEMA;

@@ -43,28 +43,12 @@ export class GoogleStorageService implements OnModuleInit {
     ITEM_ID: number,
     body: any,
   ) {
-    const file = this.gc
-      .bucket(BUCKET_NAME)
-      .file(
-        `data/retailers/${retailer_id}/${type_item}/${retailer_id}-${type_item}-${name_item}.json`,
-      );
-
     body.ITEM_ID = ITEM_ID;
     var data = Buffer.from(JSON.stringify(body));
-    file.save(data, function (err) {
-      if (!err) {
-        console.log(`Successfully uploaded ${fileName}`);
-      }
-    });
-    file.save(data).then(function () {});
+    let prefix = 'data/retailers/';
     let fileName = `${retailer_id}/${type_item}/${retailer_id}-${type_item}-${name_item}.json`;
-
-    const fileUpload = this.gc.bucket(BUCKET_NAME).file(fileName);
-
-    const uploadStream = fileUpload.createWriteStream({});
-
-    uploadStream.on('finish', () => {
-      console.log('Upload success');
-    });
+    let totalFileName = prefix + fileName;
+    await this.createOrder(BUCKET_NAME, totalFileName, data, fileName);
+    return Promise.resolve(fileName + 'added to Bucket');
   }
 }

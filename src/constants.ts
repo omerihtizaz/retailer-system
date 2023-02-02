@@ -14,4 +14,4 @@ export const BIG_QUERY_TYPE = {
 export const CONSUMER_TOPIC = 'publish-order';
 export const JWTTOKEN = 'access-token';
 export const APPROVE_CUSTOMER = 'ApproveCustomer';
-export const REJECT_CUSTOMER = 'REJECTCUSTOMER';
+export const REJECT_CUSTOMER = 'REJECT-CONSUMER';
